@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todoListApp">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="./style.css" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="./script.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <h1>Angular Todo List</h1>
+  </header>
+  <div class="input-form" ng-controller="addTodoController as addTodo">
+    <!-- {{addTodo.name}} -->
+
+    <form>
+      <input type="text" class="todo-input" ng-model="addTodo.name" />
+      <button class="todo-button" type="button" ng-click="addTodo.addTodo()">
+        <i class="fas fa-plus-square"></i>
+      </button>
+      <div class="select">
+        <select name="todos" class="filter-todo" ng-model="addTodo.filterOption"
+          ng-change="addTodo.updateFilterOption(addTodo.filterOption)">
+          <option value="all" selected>All</option>
+          <option value="completed">Completed</option>
+          <option value="pending">Pending</option>
+        </select>
+        <!-- {{addTodo.filterOption }} -->
+      </div>
+
+
+
+    </form>
+  </div>
+  <div class="todo-container" ng-controller="displayTodoController as displayTodo">
+    <ul class="todo-list">
+      <div class="todo " id="todo-{{$index}}" ng-repeat="item in displayTodo.toDoItems"
+        ng-class="{ 'completed': item.isCompleted }">
+        <li class="todo-item">
+          {{item.value}}
+        </li>
+        <button class="complete-btn" ng-click="displayTodo.toggleStatus($index)">
+          <i class="fas fa-check"></i>
+        </button>
+        <button class="trash-btn" ng-click="displayTodo.deleteTodo($index)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </ul>
+  </div>
+
+</body>
+
+</html>
